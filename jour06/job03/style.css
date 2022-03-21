@@ -1,0 +1,56 @@
+body{ 
+    display: flex;
+}
+
+.section {
+
+    background-color:#88c1d0;
+    height:100px;
+    width: 20%;
+    display:block;
+    margin: 1em;
+}
+
+@media screen
+  
+  and (max-width: 1600px)
+{
+body {
+
+   display: flex;
+   flex-direction: row;
+}
+}
+@media screen
+ and (max-width: 1599px)
+ and (min-width: 768px)
+{
+ 
+body {
+
+
+   display: flex;
+   flex-wrap: wrap;
+}
+
+
+
+    .section {
+
+        width: 40%;
+    }
+
+    
+
+}
+@media screen
+  
+  and (max-width: 767px)
+{
+body {
+
+   display: flex;
+   flex-direction:column;
+}
+}
+
