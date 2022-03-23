@@ -7,6 +7,7 @@ require_once 'header.php'
 <?php if (isset($_SESSION['utilisateur']) && !empty($_SESSION['utilisateur']['id'])) : ?>
   <p>Bonjour <?= $_SESSION['utilisateur']['prenom'] ?></p>
   <a href="deconnexion.php">Deconnexion</a>
+
 <?php else : ?>
   <a href="inscription.php">Incription</a>
   <a href="connexion.php">Connexion</a>
