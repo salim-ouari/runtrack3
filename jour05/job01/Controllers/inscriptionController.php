@@ -1,14 +1,13 @@
 <?php
+session_start();
 require_once '../Model/UserModel.php';
-$payload = file_get_contents('php://input');
-echo $payload;
-if (isset($_POST)) {
-    $result = '200';
-    echo $result;
-}
-var_dump($_POST);
 
-if (isset($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['password'], $_POST['confirm'])) {
+
+if (
+    isset($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['password'], $_POST['confirm']) &&
+    !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['password'])
+) {
+
 
     $nom = strip_tags($_POST['nom']);
     $prenom = strip_tags($_POST['prenom']);
@@ -23,15 +22,40 @@ if (isset($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['password'], 
 
         if ($password == $confirm) {
 
-            $password = password_hash($password, PASSWORD_ARGON2I);
+            $password = password_hash($password, PASSWORD_BCRYPT);
             $insert = $utilisateur->register($nom, $prenom, $email, $password);
-            $_SESSION['message'] = 'Votre inscription est enregitrer';
-            header('Location: ../Views/connexion.php');
-            exit;
+
+            $gestion_erreur = [
+                "valide" =>  array(
+                    0 => '1',
+                )
+            ];
         } else {
-            $_SESSION['erreur'] = 'les mots de passe sont differents';
+
+            $gestion_erreur = [
+                "error" =>  array(
+                    0 => 'les mots de passe sont differents'
+                )
+            ];
         }
+        echo json_encode($gestion_erreur);
     } else {
-        $_SESSION['erreur'] = 'Le mail existe déja';
+
+        $gestion_erreur = [
+            "error" =>  array(
+                0 => 'Le mail existe deja'
+            )
+        ];
+
+        echo json_encode($gestion_erreur);
     }
+} else {
+
+    $gestion_erreur = [
+        "error" => array(
+            0 => 'Les champs sont vides'
+        )
+    ];
+
+    echo json_encode($gestion_erreur);
 }

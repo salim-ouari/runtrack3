@@ -1,7 +1,6 @@
 <?php
+
 session_start();
-include_once 'traitementlogin.php';
-var_dump($resultat_log);
 
 ?>
 
@@ -13,21 +12,45 @@ var_dump($resultat_log);
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<script src="script.js"></script>
+	<title>Login</title>
+	<script type="text/javascript" src="../JS/script.js"></script>
+
+	<link rel="stylesheet" href="../public/css/style.css">
+
 </head>
 
 <body>
-	<form method="post" action="">
 
-		<label for="email"></label>
-		<input type="email" id="email" name="email" placeholder="email">
+	<header>
+		<nav>
+			<ul class="navigation">
+				<li><a href="./index.php">Index</a></li>
+				<li><a href="./inscription.php">Inscription</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
 
-		<label for="password"></label>
-		<input type="password" id="password" name="password" placeholder="password">
+		<section>
+			<h2>connexion</h2>
+			<?php var_dump($_SESSION['user']) ?>
+			<p class="erreur"></p>
 
-		<input type="submit" name="submit" value="Connexion" id="login">
-	</form>
+			<form action="../Controllers/ConnexionController.php" method="post" id="connexion_form">
+
+				<input class="email" type="text" name="email" placeholder="Email" autocomplete="off">
+
+				<input class="password" type="password" name="password" placeholder="Votre mot de passe" autocomplete="off">
+
+				<button id="valid_connexion" type="submit">Valider</button>
+
+			</form>
+		</section>
+
+
+	</main>
+
+
 
 </body>
 
